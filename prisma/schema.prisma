@@ -1,0 +1,58 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id              String        @id @default(uuid())
+  username        String
+  password        String?
+  sub             String        @default("")
+  name            String?
+  profilePicture  String?
+  solWalletId     String?       @unique
+  solWallet       SolWallet?    
+  provider        Provider
+  sentTransactions     Transaction[] @relation("SentTransactions")
+  receivedTransactions Transaction[] @relation("ReceivedTransactions")
+  rooms           Room[]        @relation("rooms")
+}
+
+model SolWallet {
+  id          String   @id @default(uuid())
+  publicKey   String
+  privateKey  String
+  userId      String   @unique
+  user        User     @relation(fields: [userId], references: [id])
+}
+
+enum Provider {
+  Google
+}
+
+model Transaction {
+  id              String   @id @default(uuid())
+  amount          Float
+  senderId        String
+  receiverId      String
+  sender          User     @relation("SentTransactions", fields: [senderId], references: [id])
+  receiver        User     @relation("ReceivedTransactions", fields: [receiverId], references: [id])
+  createdAt       DateTime @default(now())
+}
+
+model Room{
+  id          String   @id @default(uuid())
+  name        String
+  users       User[]   @relation("rooms")
+  messages    String[]
+}
