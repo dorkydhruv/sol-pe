@@ -44,7 +44,7 @@ const Swap = ({ publicKey }: { publicKey: string }) => {
       console.log(e);
       setFetchingQuote(false);
     }
-  }, [baseAmount, baseAsset, quoteAsset]);
+  }, [baseAmount, baseAsset, quoteAsset, fetchingQuote]);
 
   return (
     <Card>
@@ -119,8 +119,8 @@ const Swap = ({ publicKey }: { publicKey: string }) => {
         </div>
         <div>
           <div className="text-xs text-red-300 mt-4">
-            *Slippage tolerance is set to 50 bps <br/>
-            *Transaction fee will be charged <br/>
+            *Slippage tolerance is set to 50 bps <br />
+            *Transaction fee will be charged <br />
             *Only works on main-net
           </div>
         </div>
@@ -213,7 +213,10 @@ function AssetSelector({
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-auto p-1 m-2 "
       >
         {SUPPORTED_TOKENS.map((token) => (
-          <option selected={selectedToken.name === token.name ? true : false}>
+          <option
+            key={token.mint}
+            selected={selectedToken.name === token.name ? true : false}
+          >
             {token.name}
           </option>
         ))}

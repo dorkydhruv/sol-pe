@@ -19,7 +19,7 @@ export const useTokens = ({ address }: { address: string }) => {
       setTokens(res.data);
       setLoading(false);
     });
-  }, []);
+  }, [address]);
 
   return { tokenBalances, loading };
 };
