@@ -1,5 +1,4 @@
 "use client";
-import { useQr } from "@/app/api/hooks/useQr";
 import { Dialog, DialogContent } from "./ui/dialog";
 import { loader } from "./loader";
 import { useRef, useState } from "react";
