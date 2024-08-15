@@ -19,7 +19,7 @@ export default function AppBar() {
     <header className="bg-background border-b sticky top-0 z-10">
       <div className="container flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
         <Link
-          href="#"
+          href="/"
           className="flex items-center gap-2 text-lg font-bold"
           prefetch={false}
         >
@@ -27,17 +27,7 @@ export default function AppBar() {
           Sol-Pe
         </Link>
         {session.data?.user ? (
-          <div className="flex items-center gap-4">
-            <Button variant="ghost" size="icon">
-              <SearchIcon className="w-5 h-5" />
-              <span className="sr-only">Search</span>
-            </Button>
-            <Button variant="ghost" size="icon">
-              <MailsIcon className="w-5 h-5" />
-              <span className="sr-only">Notifications</span>
-            </Button>
-            <Profile />
-          </div>
+          <Profile />
         ) : (
           <div className="flex items-center gap-4">
             <Button onClick={() => signIn()}>Sign in</Button>
@@ -67,8 +57,6 @@ function Profile() {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel>{session.data?.user?.name}</DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem>your public key</DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={() => signOut()}>Logout</DropdownMenuItem>
       </DropdownMenuContent>

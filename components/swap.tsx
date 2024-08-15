@@ -49,7 +49,7 @@ const Swap = ({ publicKey }: { publicKey: string }) => {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Swap</CardTitle>
+        <CardTitle className="text-2xl">Swap</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex-col flex justify-center items-center rounded-lg overflow-hidden">
@@ -118,7 +118,7 @@ const Swap = ({ publicKey }: { publicKey: string }) => {
           </div>
         </div>
         <div>
-          <div className="text-xs text-gray-500 mt-4">
+          <div className="text-xs text-red-300 mt-4">
             *Slippage tolerance is set to 50 bps <br/>
             *Transaction fee will be charged <br/>
             *Only works on main-net
