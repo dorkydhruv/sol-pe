@@ -1,12 +1,14 @@
 "use client";
 import React from "react";
-import { Dialog, DialogContent } from "./ui/dialog";
+import { Dialog, DialogContent, DialogDescription } from "./ui/dialog";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import axios from "axios";
 import { useToast } from "./ui/use-toast";
 import { useTokens } from "@/app/api/hooks/useTokens";
 import { loader } from "./loader";
+import { DialogTitle } from "@radix-ui/react-dialog";
+import { on } from "events";
 interface PaymentModelProps {
   isOpen: boolean;
   title: string;
@@ -37,8 +39,16 @@ const PaymentModel: React.FC<PaymentModelProps> = ({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-white bg-opacity-50">
       <Dialog open={isOpen} onOpenChange={onClose}>
-        <DialogContent className="flex border w-full max-w-[520px] flex-col gap-6 border-none bg-blue-100 px-6 py-9 text-black">
-          {title && <h2 className="text-2xl font-bold">{title}</h2>}
+        <DialogContent
+          aria-describedby="dialog-description"
+          className="flex border w-full max-w-[520px] flex-col gap-6 border-none bg-blue-100 px-6 py-9 text-black"
+        >
+          <DialogDescription></DialogDescription>
+          <DialogTitle className="text-2xl font-bold">{title}</DialogTitle>
+          <div id="dialog-description" className="sr-only">
+            This dialog allows you to make a payment by entering the amount and
+            confirming the transaction.
+          </div>
           <div className="flex border items-center justify-center">
             <div className="flex-1">
               <div>Sender Address</div>
@@ -110,26 +120,35 @@ const PaymentModel: React.FC<PaymentModelProps> = ({
                 setIsSubmitting(false);
                 return;
               }
-              const res = await axios.post(
-                "/api/transaction",
-                {
-                  sender: sendingPublicKey,
-                  reciever: recievingPublicKey,
-                  amount: amount,
-                },
-                {
-                  headers: {
-                    "Content-Type": "application/json",
+              try {
+                const res = await axios.post(
+                  "/api/transaction",
+                  {
+                    sender: sendingPublicKey,
+                    reciever: recievingPublicKey,
+                    amount: amount,
                   },
-                }
-              );
-              const { message, signature } = res.data;
-              toast({
-                title: message,
-                description: `View transaction on Solana explorer : https://explorer.solana.com/tx/${signature}?cluster=devnet`,
-              });
-              setIsSubmitting(false);
-              onClose();
+                  {
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                  }
+                );
+                const { message, signature } = res.data;
+                toast({
+                  title: message,
+                  description: `View transaction on Solana explorer : https://explorer.solana.com/tx/${signature}?cluster=devnet`,
+                });
+                setIsSubmitting(false);
+                onClose();
+              } catch (e) {
+                toast({
+                  title: `Error : ${e}`,
+                  description: "Something went wrong",
+                });
+                setIsSubmitting(false);
+                onClose();
+              }
             }}
           >
             {isSubmitting ? "Transfering..." : "Transfer"}

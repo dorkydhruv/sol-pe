@@ -213,10 +213,7 @@ function AssetSelector({
         className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-xl focus:ring-blue-500 focus:border-blue-500 block w-auto p-1 m-2 "
       >
         {SUPPORTED_TOKENS.map((token) => (
-          <option
-            key={token.mint}
-            selected={selectedToken.name === token.name ? true : false}
-          >
+          <option key={token.mint} value={token.name}>
             {token.name}
           </option>
         ))}
