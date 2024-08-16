@@ -26,7 +26,7 @@ const PaymentModel: React.FC<PaymentModelProps> = ({
   sendingPublicKey,
   onClose,
 }) => {
-  const [amount, setAmount] = React.useState<string>();
+  const [amount, setAmount] = React.useState<string>("");
   const { toast } = useToast();
   const { tokenBalances, loading } = useTokens({
     address: sendingPublicKey ?? "",

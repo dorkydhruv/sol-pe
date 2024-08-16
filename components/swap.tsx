@@ -12,8 +12,8 @@ import { useToast } from "./ui/use-toast";
 const Swap = ({ publicKey }: { publicKey: string }) => {
   const [baseAsset, setBaseAsset] = useState(SUPPORTED_TOKENS[0]);
   const [quoteAsset, setQuoteAsset] = useState(SUPPORTED_TOKENS[1]);
-  const [baseAmount, setBaseAmount] = useState<string>();
-  const [quoteAmount, setQuoteAmount] = useState<string>();
+  const [baseAmount, setBaseAmount] = useState<string>("");
+  const [quoteAmount, setQuoteAmount] = useState<string>("");
   const { tokenBalances, loading } = useTokens({ address: publicKey });
   const [fetchingQuote, setFetchingQuote] = useState<boolean>(false);
   const [quoteResponse, setQuoteResponse] = useState<any>();

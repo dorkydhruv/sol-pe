@@ -13,8 +13,6 @@ import {
 import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {}
-
 export async function POST(req: NextRequest) {
   if (!req.body) {
     return NextResponse.json({ error: "Invalid request" }, { status: 400 });
@@ -38,6 +36,7 @@ export async function POST(req: NextRequest) {
   });
   transaction.add(sendSolInstruction);
   const session = await getServerSession(authConfig);
+  console.log(session);
   if (!session?.user) {
     return NextResponse.json({ message: "Unauthorized", status: 401 });
   }
@@ -49,6 +48,7 @@ export async function POST(req: NextRequest) {
   if (!solWallet) {
     return NextResponse.json({ message: "No wallet found", status: 400 });
   }
+  console.log(solWallet);
   const senderKeyPair = getPrivateKeyfromDb(solWallet.privateKey);
   try {
     const signature = await sendAndConfirmTransaction(connection, transaction, [
