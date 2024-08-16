@@ -2,7 +2,6 @@ import { authConfig } from "@/app/lib/authconfig";
 import { connection } from "@/app/lib/constants";
 import prisma from "@/app/lib/db";
 import {
-  Connection,
   Keypair,
   LAMPORTS_PER_SOL,
   PublicKey,
