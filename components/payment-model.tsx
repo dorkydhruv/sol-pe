@@ -32,6 +32,7 @@ const PaymentModel: React.FC<PaymentModelProps> = ({
     address: sendingPublicKey ?? "",
   });
   const [isSubmitting, setIsSubmitting] = React.useState<boolean>(false);
+  //Check if this causing error
   if (!isOpen) return null;
   if (loading) {
     return loader();

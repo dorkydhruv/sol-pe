@@ -19,6 +19,8 @@ export const WalletModel = ({
   onClose,
 }: WalletModelProps) => {
   const qrRef = useRef<HTMLDivElement>(null);
+  //Check if this causing error
+
   if (!isOpen) return null;
 
   return (
