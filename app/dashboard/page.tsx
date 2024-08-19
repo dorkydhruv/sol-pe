@@ -25,6 +25,8 @@ async function getUserWallet() {
   return { error: null, userWallet };
 }
 
+//route unavailable [on reload] if not authenticated
+
 const Page = async () => {
   const session = await getServerSession(authConfig);
   const userWallet = await getUserWallet();
@@ -33,7 +35,9 @@ const Page = async () => {
   }
 
   if (!session?.user.uid) {
-    return <div className="flex justify-center h-screen">Not authenticated</div>;
+    return (
+      <div className="flex justify-center h-screen">Not authenticated</div>
+    );
   }
 
   return (
