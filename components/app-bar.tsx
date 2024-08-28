@@ -26,6 +26,7 @@ export default function AppBar() {
           <WalletIcon className="w-6 h-6" />
           Sol-Pe
         </Link>
+        <Link href="https://faucet.solana.com/">Request airdrop [devnet]</Link>
         {session.data?.user ? (
           <Profile />
         ) : (
