@@ -36,7 +36,7 @@ const Payments = ({ publicKey }: { publicKey: string }) => {
     try {
       setLoading(true);
       axios
-        .get(`${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/api/users`)
+        .get(`${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/api/users`) // this is me testing :(
         .then((response) => {
           setUsers(response.data);
           setLoading(false);
