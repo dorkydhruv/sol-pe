@@ -35,12 +35,10 @@ const Payments = ({ publicKey }: { publicKey: string }) => {
     console.log("Payments component mounted");
     try {
       setLoading(true);
-      axios
-        .get(`${process.env.NEXTAUTH_URL ?? "http://localhost:3000"}/api/users`) // this is me testing :(
-        .then((response) => {
-          setUsers(response.data);
-          setLoading(false);
-        });
+      axios.get(`/api/users`).then((response) => {
+        setUsers(response.data);
+        setLoading(false);
+      });
     } catch (e) {
       console.log(e);
       setLoading(false);
