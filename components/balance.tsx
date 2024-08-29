@@ -11,7 +11,7 @@ const Balance = ({ publicKey }: { publicKey: string }) => {
   const { tokenBalances, loading } = useTokens({ address: publicKey });
   const { toast } = useToast();
   const [showWalletModel, setShowWalletModel] = useState(false);
-  if (loading) {
+  if (loading && !tokenBalances) {
     return loader();
   }
   return (
@@ -21,7 +21,7 @@ const Balance = ({ publicKey }: { publicKey: string }) => {
       </CardHeader>
       <CardContent className="flex flex-col items-center justify-center gap-2">
         <div className="text-4xl font-bold">
-          ${tokenBalances?.totalBalance.toFixed(2)}
+          ${tokenBalances?.totalBalance.toFixed(2) ?? 0}
         </div>
         {tokenBalances?.tokens.map((token) => (
           <div key={token.name} className="text-muted-foreground">
