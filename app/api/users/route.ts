@@ -4,15 +4,23 @@ import { getServerSession } from "next-auth";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function GET(req: NextRequest) {
-  const session = await getServerSession(authConfig);
-  if (!session) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  try {
+    const session = await getServerSession(authConfig);
+    if (!session) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    }
+    const users = await getAllUsers();
+    const filteredUsers = users.filter(
+      (user) => user.username !== session.user.email
+    );
+    return NextResponse.json(filteredUsers);
+  } catch (e) {
+    console.log(e);
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 }
+    );
   }
-  const users = await getAllUsers();
-  const filteredUsers = users.filter(
-    (user) => user.username !== session.user.email
-  );
-  return NextResponse.json(filteredUsers);
 }
 
 async function getAllUsers() {

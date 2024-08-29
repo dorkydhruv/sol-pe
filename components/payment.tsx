@@ -31,7 +31,7 @@ const Payments = ({ publicKey }: { publicKey: string }) => {
         user.username.includes(searchQuery) || user.name.includes(searchQuery)
     );
   }, [users, searchQuery]);
-  useMemo(() => {
+  useEffect(() => {
     console.log("Payments component mounted");
     try {
       setLoading(true);

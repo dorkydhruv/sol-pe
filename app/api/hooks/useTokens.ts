@@ -15,6 +15,7 @@ export const useTokens = ({ address }: { address: string }) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    setLoading(true);
     axios.get(`api/tokens?address=${address}`).then((res) => {
       setTokens(res.data);
       setLoading(false);
