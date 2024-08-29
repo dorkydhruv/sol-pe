@@ -9,7 +9,7 @@ import Swap from "@/components/swap";
 
 async function getUserWallet() {
   const session = await getServerSession(authConfig);
-  const userWallet = await prisma.solWallet.findFirst({
+  const userWallet = await prisma.solWallet?.findFirst({
     where: {
       userId: session?.user.uid,
     },
