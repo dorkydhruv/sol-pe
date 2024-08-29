@@ -65,8 +65,10 @@ const Swap = ({ publicKey }: { publicKey: string }) => {
             topBorderEnabled={true}
             bottomBorderEnabled={false}
             subtitle={`Current balance : ${
-              tokenBalances?.tokens.find((x) => x.name === baseAsset.name)
-                ?.balance
+              !tokenBalances
+                ? 0
+                : tokenBalances?.tokens.find((x) => x.name === baseAsset.name)
+                    ?.balance
             } ${baseAsset.name}`}
             amount={baseAmount?.toString()}
           ></SwapInputRow>

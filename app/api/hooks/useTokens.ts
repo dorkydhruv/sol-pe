@@ -16,10 +16,15 @@ export const useTokens = ({ address }: { address: string }) => {
 
   useEffect(() => {
     setLoading(true);
-    axios.get(`api/tokens?address=${address}`).then((res) => {
-      setTokens(res.data);
-      setLoading(false);
-    });
+    try {
+      axios.get(`/api/tokens?address=${address}`).then((res) => {
+        setTokens(res.data);
+        setLoading(false);
+      });
+    } catch (e) {
+      console.log(e);
+      setLoading(true);
+    }
   }, [address]);
 
   return { tokenBalances, loading };
